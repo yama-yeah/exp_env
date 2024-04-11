@@ -10,3 +10,5 @@ wheels/
 .venv
 .history
 src/work
+
+.DS_store

@@ -1,4 +1,5 @@
 from torch import nn
+import torch
 import torch.nn.functional as F
 
 from exp_env.linear_regressor.base import BaseLinearModel
@@ -18,7 +19,7 @@ class LazyLasso(nn.Module,BaseLinearModel):
             raise Exception('l1 loss can not be solved by inverse matrix')
 
     def loss(self, y_hat, y):
-        return F.l1_loss(y_hat, y)
+        return F.mse_loss(y_hat, y) + self.alpha * F.l1_loss(self.linear.weight, torch.zeros_like(self.linear.weight))
     
     def forward(self, x):
         return self.linear(x)
@@ -38,7 +39,7 @@ class Lasso(nn.Module,BaseLinearModel):
             raise Exception('l1 loss can not be solved by inverse matrix')
 
     def loss(self, y_hat, y):
-        return F.l1_loss(y_hat, y)
+        return F.mse_loss(y_hat, y) + self.alpha * F.l1_loss(self.linear.weight, torch.zeros_like(self.linear.weight))
     
     def forward(self, x):
         return self.linear(x)
