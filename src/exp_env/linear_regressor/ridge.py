@@ -43,10 +43,17 @@ class Ridge(nn.Module,BaseLinearModel):
         if self.useGradientDescent:
             raise Exception('if you wanna use gradient descent, please use torch.optim')
         with torch.no_grad():
-            X=torch.cat([X,torch.ones(X.shape[0],1)],dim=1)
-            I=torch.eye(X.shape[1])
+            one=torch.ones(X.shape[0]*X.shape[1]).to(X.device).unsqueeze(-1)
+            X=X.flatten(end_dim=-2)
+            print(one.shape)
+            print(X.shape)
+            
+            X=torch.cat([X,one],dim=-1)
+            I=torch.eye(X.shape[1]).to(X.device)
             lambdaI=self.alpha*I
-            WB=torch.inverse(X.T@X+lambdaI)@X.T@y
+            a=X.T@X+lambdaI
+            WB=torch.inverse(a)@X.T
+            WB=WB@y
             self.linear.weight.data=WB[:-1]
             self.linear.bias.data=WB[-1]
             del WB,I,lambdaI
