@@ -8,28 +8,61 @@
 #   with-sources: false
 
 -e file:.
-appnope==0.1.4
-    # via ipykernel
+aiohttp==3.9.4
+    # via datasets
+    # via fsspec
+aiosignal==1.3.1
+    # via aiohttp
 asttokens==2.4.1
     # via stack-data
+attrs==23.2.0
+    # via aiohttp
+certifi==2024.2.2
+    # via requests
+charset-normalizer==3.3.2
+    # via requests
 comm==0.2.2
     # via ipykernel
 contourpy==1.2.1
     # via matplotlib
 cycler==0.12.1
     # via matplotlib
+datasets==2.18.0
+    # via exp-env
 debugpy==1.8.1
     # via ipykernel
 decorator==5.1.1
     # via ipython
+dill==0.3.8
+    # via datasets
+    # via multiprocess
 executing==2.0.1
     # via stack-data
 filelock==3.13.3
+    # via datasets
+    # via huggingface-hub
     # via torch
+    # via transformers
+    # via triton
 fonttools==4.51.0
     # via matplotlib
-fsspec==2024.3.1
+frozenlist==1.4.1
+    # via aiohttp
+    # via aiosignal
+fsspec==2024.2.0
+    # via datasets
+    # via huggingface-hub
     # via torch
+gensim==4.3.2
+    # via exp-env
+huggingface-hub==0.22.2
+    # via datasets
+    # via sentence-transformers
+    # via tokenizers
+    # via transformers
+idna==3.7
+    # via requests
+    # via yarl
 ipykernel==6.29.4
     # via exp-env
 ipython==8.23.0
@@ -56,21 +89,62 @@ matplotlib-inline==0.1.6
     # via ipython
 mpmath==1.3.0
     # via sympy
+multidict==6.0.5
+    # via aiohttp
+    # via yarl
+multiprocess==0.70.16
+    # via datasets
 nest-asyncio==1.6.0
     # via ipykernel
 networkx==3.3
     # via torch
 numpy==1.26.4
     # via contourpy
+    # via datasets
+    # via gensim
     # via matplotlib
     # via pandas
     # via pyarrow
     # via scikit-learn
     # via scipy
+    # via sentence-transformers
+    # via transformers
+nvidia-cublas-cu12==12.1.3.1
+    # via nvidia-cudnn-cu12
+    # via nvidia-cusolver-cu12
+    # via torch
+nvidia-cuda-cupti-cu12==12.1.105
+    # via torch
+nvidia-cuda-nvrtc-cu12==12.1.105
+    # via torch
+nvidia-cuda-runtime-cu12==12.1.105
+    # via torch
+nvidia-cudnn-cu12==8.9.2.26
+    # via torch
+nvidia-cufft-cu12==11.0.2.54
+    # via torch
+nvidia-curand-cu12==10.3.2.106
+    # via torch
+nvidia-cusolver-cu12==11.4.5.107
+    # via torch
+nvidia-cusparse-cu12==12.1.0.106
+    # via nvidia-cusolver-cu12
+    # via torch
+nvidia-nccl-cu12==2.19.3
+    # via torch
+nvidia-nvjitlink-cu12==12.4.127
+    # via nvidia-cusolver-cu12
+    # via nvidia-cusparse-cu12
+nvidia-nvtx-cu12==12.1.105
+    # via torch
 packaging==24.0
+    # via datasets
+    # via huggingface-hub
     # via ipykernel
     # via matplotlib
+    # via transformers
 pandas==2.2.1
+    # via datasets
     # via exp-env
 parso==0.8.4
     # via jedi
@@ -78,6 +152,7 @@ pexpect==4.9.0
     # via ipython
 pillow==10.3.0
     # via matplotlib
+    # via sentence-transformers
 platformdirs==4.2.0
     # via jupyter-core
 polars==0.20.18
@@ -91,7 +166,10 @@ ptyprocess==0.7.0
 pure-eval==0.2.2
     # via stack-data
 pyarrow==15.0.2
+    # via datasets
     # via exp-env
+pyarrow-hotfix==0.6
+    # via datasets
 pygments==2.17.2
     # via ipython
 pyparsing==3.1.2
@@ -102,27 +180,57 @@ python-dateutil==2.9.0.post0
     # via pandas
 pytz==2024.1
     # via pandas
+pyyaml==6.0.1
+    # via datasets
+    # via huggingface-hub
+    # via transformers
 pyzmq==25.1.2
     # via ipykernel
     # via jupyter-client
+regex==2023.12.25
+    # via transformers
+requests==2.31.0
+    # via datasets
+    # via huggingface-hub
+    # via transformers
+safetensors==0.4.2
+    # via transformers
 scikit-learn==1.4.2
     # via exp-env
-scipy==1.13.0
+    # via sentence-transformers
+scipy==1.10.1
+    # via exp-env
+    # via gensim
     # via scikit-learn
+    # via sentence-transformers
+sentence-transformers==2.6.1
+    # via exp-env
+setuptools==69.3.0
+    # via exp-env
 six==1.16.0
     # via asttokens
     # via python-dateutil
+smart-open==7.0.4
+    # via gensim
 stack-data==0.6.3
     # via ipython
 sympy==1.12
     # via torch
 threadpoolctl==3.4.0
     # via scikit-learn
+tokenizers==0.15.2
+    # via transformers
 torch==2.2.2
     # via exp-env
+    # via sentence-transformers
 tornado==6.4
     # via ipykernel
     # via jupyter-client
+tqdm==4.66.2
+    # via datasets
+    # via huggingface-hub
+    # via sentence-transformers
+    # via transformers
 traitlets==5.14.2
     # via comm
     # via ipykernel
@@ -130,10 +238,24 @@ traitlets==5.14.2
     # via jupyter-client
     # via jupyter-core
     # via matplotlib-inline
+transformers==4.39.3
+    # via exp-env
+    # via sentence-transformers
+triton==2.2.0
+    # via torch
 typing-extensions==4.10.0
+    # via huggingface-hub
     # via ipython
     # via torch
 tzdata==2024.1
     # via pandas
+urllib3==2.2.1
+    # via requests
 wcwidth==0.2.13
     # via prompt-toolkit
+wrapt==1.16.0
+    # via smart-open
+xxhash==3.4.1
+    # via datasets
+yarl==1.9.4
+    # via aiohttp
