@@ -5,7 +5,7 @@ from exp_env.reservoir.base import BaseReservoirModule
 
 
 class ESNModule(nn.Module,BaseReservoirModule):
-    def __init__(self, in_features:int, out_features:int, max_log_len=None, alpha=0.1, connection_prob=0.05, activation_func=nn.Tanh(), initial_state:None|torch.Tensor=None):
+    def __init__(self, in_features:int, out_features:int, max_log_len=None, alpha=0.1, connection_prob=0.05, activation_func=nn.Tanh(), initial_state:None|torch.Tensor=None,spectral_radius=0.99):
         """
         Initializes an Echo State Network (ESN) module.
 
@@ -19,6 +19,7 @@ class ESNModule(nn.Module,BaseReservoirModule):
             initial_state (None or torch.Tensor, optional): Initial state of the reservoir. Defaults to None.
         """
         super().__init__()
+        self.spec_rad = spectral_radius
         self.initial_state = initial_state
         self.in_features = in_features
         self.out_features = out_features
@@ -42,7 +43,7 @@ class ESNModule(nn.Module,BaseReservoirModule):
         w = torch.randn(hidden_dim**2).reshape(hidden_dim,hidden_dim)
         w*=(torch.rand(hidden_dim,hidden_dim)<self.connection_prob)
         spectral_radius = torch.abs(torch.linalg.eigvals(w)).max()
-        w=w/spectral_radius*0.99
+        w=w/spectral_radius*self.spec_rad
         return w
     
     def next(self, x:torch.Tensor,current_state:torch.Tensor)->torch.Tensor:
