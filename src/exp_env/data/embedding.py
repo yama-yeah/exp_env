@@ -7,7 +7,7 @@ from exp_env.data.data_maker_base import DataMaker, DataMakerSpec
 class EmbeddingDataConfig(DataMakerSpec):
     model_name: str
     is_bardirectional: bool
-    def __init__(self, model_name: str, is_bardirectional: bool,pad_token:str|None|bool=None,device:str='cpu'):
+    def __init__(self, model_name: str, is_bardirectional: bool,pad_token:str|None|bool=None,time_shift=0,alpha=0.3,device:str='cpu'):
         self.model_name = model_name
         self.is_bardirectional = is_bardirectional
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -17,7 +17,10 @@ class EmbeddingDataConfig(DataMakerSpec):
             self.tokenizer.pad_token=pad_token
         model= AutoModel.from_pretrained('sentence-transformers/paraphrase-MiniLM-L6-v2').to(device)
         self.device=device
-        self.emmbedding_weight = model.get_input_embeddings().weight.clone()
+        self.emmbedding_weight = model.get_input_embeddings().weight.clone().detach().to(device)
+        self.emmbedding_weight.requires_grad=False
+        self.time_shift=time_shift
+        self.alpha=alpha
 
 class EmbeddingDataMaker(DataMaker):
     def __init__(self, config: EmbeddingDataConfig):
@@ -36,9 +39,13 @@ class EmbeddingDataMaker(DataMaker):
 class EmbeddingsDataMaker(EmbeddingDataMaker):
     def __init__(self, config: EmbeddingDataConfig):
         self.is_berdirectional = config.is_bardirectional
+        self.time_shift=config.time_shift
+        self.alpha=config.alpha
         super().__init__(config)
     def make(self, texts:list[str],use_mask=False)->torch.Tensor:
         max_length=-1
+        time_shift=self.time_shift
+        alpha=self.alpha
         for text in texts:
             token=self.tokenizer(text, truncation=False, padding=False)['input_ids']
             if len(token)>max_length:
@@ -51,6 +58,8 @@ class EmbeddingsDataMaker(EmbeddingDataMaker):
 
         if self.is_berdirectional:
             forward = torch.cat([forward,reversed],dim=2)
+        if time_shift>0:
+            forward=alpha*forward+(1-alpha)*torch.roll(forward,time_shift,dims=1)
         if use_mask:
             return forward,f_mask
         return forward
