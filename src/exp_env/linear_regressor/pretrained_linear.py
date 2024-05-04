@@ -1,8 +1,9 @@
 from exp_env.linear_regressor.base import BaseLinearModel
 from torch import Tensor
 from torch.nn import functional as F
+import torch
 
-class PreTrainedLinear(BaseLinearModel):
+class PreTrainedLinear(BaseLinearModel,torch.nn.Module):
     def __init__(self, weight: Tensor, bias: Tensor|None = None):
         super().__init__()
         self.weight = weight
