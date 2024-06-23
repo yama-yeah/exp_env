@@ -23,6 +23,8 @@ asttokens==2.4.1
     # via stack-data
 attrs==23.2.0
     # via aiohttp
+    # via jsonschema
+    # via referencing
 beartype==0.17.2
     # via zetascale
 better-loggers==1.0.1
@@ -30,6 +32,8 @@ better-loggers==1.0.1
 bitsandbytes==0.43.0
     # via zetascale
 blobfile==2.1.1
+    # via exp-env
+cellpylib==2.4.0
     # via exp-env
 certifi==2024.2.2
     # via requests
@@ -69,6 +73,8 @@ executing==2.0.1
     # via stack-data
 fairscale==0.4.13
     # via exp-env
+fastjsonschema==2.19.1
+    # via nbformat
 filelock==3.13.3
     # via blobfile
     # via datasets
@@ -114,11 +120,16 @@ jinja2==3.1.3
     # via torch
 joblib==1.4.0
     # via scikit-learn
+jsonschema==4.22.0
+    # via nbformat
+jsonschema-specifications==2023.12.1
+    # via jsonschema
 jupyter-client==8.6.1
     # via ipykernel
 jupyter-core==5.7.2
     # via ipykernel
     # via jupyter-client
+    # via nbformat
 kiwisolver==1.4.5
     # via matplotlib
 libcst==1.1.0
@@ -135,7 +146,9 @@ markdown-it-py==3.0.0
 markupsafe==2.1.5
     # via jinja2
 matplotlib==3.8.4
+    # via cellpylib
     # via exp-env
+    # via seaborn
 matplotlib-inline==0.1.6
     # via ipykernel
     # via ipython
@@ -152,6 +165,8 @@ multiprocess==0.70.16
     # via datasets
 mypy-extensions==1.0.0
     # via typing-inspect
+nbformat==5.10.4
+    # via exp-env
 nest-asyncio==1.6.0
     # via ipykernel
 networkx==3.3
@@ -159,6 +174,7 @@ networkx==3.3
 numpy==1.25.2
     # via accelerate
     # via bitsandbytes
+    # via cellpylib
     # via contourpy
     # via datasets
     # via einx
@@ -166,10 +182,14 @@ numpy==1.25.2
     # via gensim
     # via matplotlib
     # via pandas
+    # via patsy
+    # via plotly-express
     # via pyarrow
     # via scikit-learn
     # via scipy
+    # via seaborn
     # via sentence-transformers
+    # via statsmodels
     # via torchvision
     # via transformers
 nvidia-cublas-cu12==12.1.3.1
@@ -207,13 +227,21 @@ packaging==24.0
     # via huggingface-hub
     # via ipykernel
     # via matplotlib
+    # via plotly
     # via pytest
+    # via statsmodels
     # via transformers
 pandas==2.2.2
     # via datasets
     # via exp-env
+    # via plotly-express
+    # via seaborn
+    # via statsmodels
 parso==0.8.4
     # via jedi
+patsy==0.5.6
+    # via plotly-express
+    # via statsmodels
 pexpect==4.9.0
     # via ipython
 pillow==10.3.0
@@ -222,12 +250,18 @@ pillow==10.3.0
     # via torchvision
 platformdirs==4.2.0
     # via jupyter-core
+plotly==5.22.0
+    # via plotly-express
+plotly-express==0.4.1
+    # via exp-env
 pluggy==1.5.0
     # via pytest
 polars==0.20.18
     # via exp-env
 prompt-toolkit==3.0.43
     # via ipython
+protobuf==5.27.1
+    # via exp-env
 psutil==5.9.8
     # via accelerate
     # via ipykernel
@@ -269,6 +303,9 @@ pyyaml==6.0.1
 pyzmq==25.1.2
     # via ipykernel
     # via jupyter-client
+referencing==0.35.1
+    # via jsonschema
+    # via jsonschema-specifications
 regex==2023.12.25
     # via tiktoken
     # via transformers
@@ -280,6 +317,9 @@ requests==2.31.0
     # via transformers
 rich==13.7.1
     # via zetascale
+rpds-py==0.18.1
+    # via jsonschema
+    # via referencing
 safetensors==0.4.2
     # via accelerate
     # via transformers
@@ -289,26 +329,37 @@ scikit-learn==1.4.2
 scipy==1.9.3
     # via exp-env
     # via gensim
+    # via plotly-express
     # via scikit-learn
     # via sentence-transformers
+    # via statsmodels
     # via zetascale
+seaborn==0.13.2
+    # via exp-env
 sentence-transformers==2.6.1
+    # via exp-env
+sentencepiece==0.2.0
     # via exp-env
 setuptools==69.3.0
     # via exp-env
 six==1.16.0
     # via asttokens
     # via fire
+    # via patsy
     # via python-dateutil
 smart-open==7.0.4
     # via gensim
 stack-data==0.6.3
     # via ipython
+statsmodels==0.14.2
+    # via plotly-express
 sympy==1.12
     # via einx
     # via torch
 tabulate==0.9.0
     # via adabelief-pytorch
+tenacity==8.3.0
+    # via plotly
 termcolor==2.4.0
     # via fire
 threadpoolctl==3.4.0
@@ -354,6 +405,7 @@ traitlets==5.14.2
     # via jupyter-client
     # via jupyter-core
     # via matplotlib-inline
+    # via nbformat
 transformers==4.39.1
     # via exp-env
     # via sentence-transformers
