@@ -64,14 +64,15 @@ class ESNModule(nn.Module,BaseReservoirModule):
         if self.initial_state is not None:
             self.log_state = [self.initial_state]
         else:
-            self.log_state = [torch.zeros(self.out_features).to(self.w_res.device)]
+            self.log_state = [torch.zeros(self.out_features).to(self.w_res.device).to(self.w_res.dtype)]
     
-    def forward(self,X:torch.Tensor,one_step_mode=False)->torch.Tensor:
+    def forward(self,X:torch.Tensor,one_step_mode=False,auto_reset=True)->torch.Tensor:
         if one_step_mode:
             self.add_log_state(self.next(X,self.log_state[-1]))
             return self.log_state[-1]
         else:
-            self.reset()
+            if auto_reset:
+                self.reset()
             X=X.permute(1, 0, 2)
             for x in X:
                 self.add_log_state(self.next(x,self.log_state[-1]))

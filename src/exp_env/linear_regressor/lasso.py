@@ -41,5 +41,8 @@ class Lasso(nn.Module,BaseLinearModel):
     def loss(self, y_hat, y):
         return F.mse_loss(y_hat, y) + self.alpha * F.l1_loss(self.linear.weight, torch.zeros_like(self.linear.weight))
     
+    def elastic_loss(self, y_hat, y,alpha2=0.5):
+        return F.mse_loss(y_hat, y) + self.alpha * F.l1_loss(self.linear.weight, torch.zeros_like(self.linear.weight)) + alpha2 * F.mse_loss(self.linear.weight, torch.zeros_like(self.linear.weight))
+    
     def forward(self, x):
         return self.linear(x)
